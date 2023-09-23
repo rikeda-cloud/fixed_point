@@ -5,8 +5,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#ifdef DOUBLE
+#ifdef	DOUBLE
 typedef double t_fixed;
+#elif	LONG
+typedef long t_fixed;
+#elif	LLONG
+typedef long long t_fixed;
 #else
 typedef int t_fixed;
 #endif

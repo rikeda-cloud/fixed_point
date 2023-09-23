@@ -16,6 +16,14 @@ ifdef DOUBLE
 	CFLAGS	+=	-D DOUBLE=1
 endif
 
+ifdef LONG
+	CFLAGS	+=	-D LONG=1
+endif
+
+ifdef LLONG
+	CFLAGS	+=	-D LLONG=1
+endif
+
 $(TARGET): $(NAME) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@ $(LMFLAG)
 
@@ -37,5 +45,9 @@ re:		fclean all
 
 double:
 	make DOUBLE=1
+long:
+	make LONG=1
+llong:
+	make LLONG=1
 
 .PHONY:	all clean fclean re
