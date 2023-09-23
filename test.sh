@@ -1,4 +1,4 @@
-make
+make $1
 echo ===========  TEST START  ===========
 
 ./fixed_point 10 42 add

@@ -10,8 +10,11 @@ SRCS_DIR	=	./srcs/
 SRCS		=	$(SRCS_DIR)cast.c
 SRCS		+=	$(SRCS_DIR)four_arithmetic_operations.c
 SRCS		+=	$(SRCS_DIR)main.c
-
 OBJS		= 	$(SRCS:%.c=%.o)
+
+ifdef DOUBLE
+	CFLAGS	+=	-D DOUBLE=1
+endif
 
 $(TARGET): $(NAME) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@ $(LMFLAG)
@@ -31,5 +34,8 @@ fclean:	clean
 		$(RM) $(NAME) $(TARGET)
 
 re:		fclean all
+
+double:
+	make DOUBLE=1
 
 .PHONY:	all clean fclean re

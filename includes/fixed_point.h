@@ -5,7 +5,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#ifdef DOUBLE
+typedef double t_fixed;
+#else
 typedef int t_fixed;
+#endif
 
 enum e_floating_point
 {
