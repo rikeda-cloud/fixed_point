@@ -9,18 +9,7 @@ LMFLAG		=	-lm
 SRCS_DIR	=	./srcs/
 SRCS		=	$(SRCS_DIR)cast.c
 SRCS		+=	$(SRCS_DIR)four_arithmetic_operations.c
-
-ifdef FIXED
-SRCS		+=	$(SRCS_DIR)main_fixed.c
-endif
-
-ifdef INT
-SRCS		+=	$(SRCS_DIR)main_int.c
-endif
-
-ifdef DOUBLE
-SRCS		+=	$(SRCS_DIR)main_double.c
-endif
+SRCS		+=	$(SRCS_DIR)main.c
 
 OBJS		= 	$(SRCS:%.c=%.o)
 
@@ -36,20 +25,11 @@ $(NAME): $(OBJS)
 all: $(TARGET)
 
 clean:
-	$(RM) $(NAME) $(SRCS_DIR)*.o
+	$(RM) $(OBJS)
 
 fclean:	clean
-		$(RM) $(TARGET)
+		$(RM) $(NAME) $(TARGET)
 
 re:		fclean all
-
-int:
-	make INT=1
-
-fixed:
-	make FIXED=1
-
-double:
-	make DOUBLE=1
 
 .PHONY:	all clean fclean re
