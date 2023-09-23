@@ -1,56 +1,42 @@
-#include "includes/minirt.h"
+#include "fixed_point.h"
 
-static t_fixed	double_to_fixed_point(double number)
+static t_fixed_point	double_to_fixed(double number)
 {
-	t_fixed	fixed;
-
-	fixed.point = FLOATING_POINT;
-	fixed.value = (int)roundf(number * (1U << fixed.point));
-	return (fixed);
+	return (roundf(number * FLOATING_POINT));
 }
 
-static double	fixed_point_to_double(t_fixed fixed_point)
+static double	fixed_to_double(t_fixed_point fixed)
 {
-	double	number;
-
-	number = (double)fixed_point.value / (1U << fixed_point.point);
-	return (number);
+	return (fixed / FLOATING_POINT);
 }
 
-t_fixed	add(t_fixed fixed1, t_fixed fixed2)
+t_fixed_point	add(t_fixed_point value1, int value2)
 {
-	t_fixed	result;
-
-	result.point = fixed1.point;
-	result.value = fixed1.value + fixed2.value;
-	return (result);
+	return (value1 + (value2 * FLOATING_POINT));
 }
 
-t_fixed	sub(t_fixed fixed1, t_fixed fixed2)
+t_fixed_point	sub(t_fixed_point value1, int value2)
 {
-	t_fixed	result;
-
-	result.point = fixed1.point;
-	result.value = fixed1.value - fixed2.value;
-	return (result);
+	return (value1 - (value2 * FLOATING_POINT));
 }
 
 int	main(void)
 {
-	double	double_number1 = 1543.533234;
-	double	double_number2 = 4.34444445234;
+	double	double1 = 1543.3234;
+	double	double2 = 4.345234;
 
-	t_fixed	fixed_number1;
-	t_fixed	fixed_number2;
-	t_fixed	result;
+	t_fixed_point	fixed1;
+	t_fixed_point	fixed2;
+	t_fixed_point	result;
 
-	fixed_number1 = double_to_fixed_point(double_number1);
-	fixed_number2 = double_to_fixed_point(double_number2);
-	/* result = add(fixed_number1, fixed_number2); */
-	result = sub(fixed_number1, fixed_number2);
+	fixed1 = double_to_fixed(double1);
+	fixed2 = double_to_fixed(double2);
+	result = fixed1 + fixed2;
+	/* result = add(fixed1, fixed2); */
+	/* result = sub(fixed1, -20); */
 
-	printf("double_number1 + double_number2 = %f\n", double_number1 - double_number2);
-	printf("fixed_number1 + fixed_number2 = %f\n", fixed_point_to_double(result));
+	printf("double_number1 + double_number2 = %f\n", double1 + double2);
+	printf("fixed_number1 + fixed_number2 = %f\n", fixed_to_double(result));
 	
 	return (0);
 }

@@ -1,4 +1,4 @@
-NAME				=	minirt
+NAME				=	fixed_point
 CC					=	cc
 RM					=	rm -rf
 MKDIR				=	mkdir -p
