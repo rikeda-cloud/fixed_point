@@ -1,28 +1,55 @@
-NAME				=	fixed_point
-CC					=	cc
-RM					=	rm -rf
-MKDIR				=	mkdir -p
-CFLAGS				=	-Wall -Wextra -Werror
-LMFLAG				=	-lm
+TARGET		=	fixed_point
+NAME		=	fixed_point.a
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror
+AR			=	ar rcs
+RM			=	rm -rf
+LMFLAG		=	-lm
 
-SRCS				=	main.c
+SRCS_DIR	=	./srcs/
+SRCS		=	$(SRCS_DIR)cast.c
+SRCS		+=	$(SRCS_DIR)four_arithmetic_operations.c
 
-OBJS				= 	$(SRCS:%.c=%.o)
+ifdef FIXED
+SRCS		+=	$(SRCS_DIR)main_fixed.c
+endif
 
-all: $(OBJDIR) $(NAME)
+ifdef INT
+SRCS		+=	$(SRCS_DIR)main_int.c
+endif
 
-$(NAME): $(OBJS)
+ifdef DOUBLE
+SRCS		+=	$(SRCS_DIR)main_double.c
+endif
+
+OBJS		= 	$(SRCS:%.c=%.o)
+
+$(TARGET): $(NAME) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@ $(LMFLAG)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@ $(LMFLAG)
+$(NAME): $(OBJS)
+	$(AR) $@ $^
 
-clean:	
-	$(RM) $(OBJS)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+all: $(TARGET)
+
+clean:
+	$(RM) $(NAME) $(SRCS_DIR)*.o
 
 fclean:	clean
-		$(RM) $(NAME)
+		$(RM) $(TARGET)
 
 re:		fclean all
+
+int:
+	make INT=1
+
+fixed:
+	make FIXED=1
+
+double:
+	make DOUBLE=1
 
 .PHONY:	all clean fclean re
