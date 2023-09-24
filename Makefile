@@ -9,20 +9,20 @@ LMFLAG		=	-lm
 SRCS_DIR	=	./srcs/
 SRCS		=	$(SRCS_DIR)cast.c
 SRCS		+=	$(SRCS_DIR)four_arithmetic_operations.c
-
-ifdef FIXED
-SRCS		+=	$(SRCS_DIR)main_fixed.c
-endif
-
-ifdef INT
-SRCS		+=	$(SRCS_DIR)main_int.c
-endif
+SRCS		+=	$(SRCS_DIR)main.c
+OBJS		= 	$(SRCS:%.c=%.o)
 
 ifdef DOUBLE
-SRCS		+=	$(SRCS_DIR)main_double.c
+	CFLAGS	+=	-D DOUBLE=1
 endif
 
-OBJS		= 	$(SRCS:%.c=%.o)
+ifdef LONG
+	CFLAGS	+=	-D LONG=1
+endif
+
+ifdef LLONG
+	CFLAGS	+=	-D LLONG=1
+endif
 
 $(TARGET): $(NAME) $(MAIN)
 	$(CC) $(CFLAGS) $^ -o $@ $(LMFLAG)
@@ -36,20 +36,18 @@ $(NAME): $(OBJS)
 all: $(TARGET)
 
 clean:
-	$(RM) $(NAME) $(SRCS_DIR)*.o
+	$(RM) $(OBJS)
 
 fclean:	clean
-		$(RM) $(TARGET)
+		$(RM) $(NAME) $(TARGET)
 
 re:		fclean all
 
-int:
-	make INT=1
-
-fixed:
-	make FIXED=1
-
 double:
 	make DOUBLE=1
+long:
+	make LONG=1
+llong:
+	make LLONG=1
 
 .PHONY:	all clean fclean re
