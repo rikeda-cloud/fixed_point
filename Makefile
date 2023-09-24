@@ -9,11 +9,16 @@ LMFLAG		=	-lm
 SRCS_DIR	=	./srcs/
 SRCS		=	$(SRCS_DIR)cast.c
 SRCS		+=	$(SRCS_DIR)four_arithmetic_operations.c
-SRCS		+=	$(SRCS_DIR)main.c
+# SRCS		+=	$(SRCS_DIR)main.c
+SRCS		+=	$(SRCS_DIR)benchmark.c
 OBJS		= 	$(SRCS:%.c=%.o)
 
 ifdef DOUBLE
 	CFLAGS	+=	-D DOUBLE=1
+endif
+
+ifdef FLOAT
+	CFLAGS	+=	-D FLOAT=1
 endif
 
 ifdef LONG
@@ -45,6 +50,8 @@ re:		fclean all
 
 double:
 	make DOUBLE=1
+float:
+	make FLOAT=1
 long:
 	make LONG=1
 llong:

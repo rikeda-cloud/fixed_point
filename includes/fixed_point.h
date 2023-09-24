@@ -7,6 +7,8 @@
 
 #ifdef	DOUBLE
 typedef double t_fixed;
+#elif	FLOAT
+typedef float t_fixed;
 #elif	LONG
 typedef long t_fixed;
 #elif	LLONG
@@ -17,7 +19,7 @@ typedef int t_fixed;
 
 enum e_floating_point
 {
-	SHIFT_NUMBER = 8,
+	SHIFT_NUMBER = 16,
 	FLOATING_POINT = (1U << SHIFT_NUMBER),
 };
 

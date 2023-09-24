@@ -14,6 +14,8 @@ t_fixed	mul_fixed(t_fixed val1, t_fixed val2)
 {
 	#ifdef DOUBLE
 	return (val1 * val2);
+	#elif FLOAT
+	return (val1 * val2);
 	#else
 	return ((val1 * val2) / FLOATING_POINT);
 	#endif
@@ -22,6 +24,8 @@ t_fixed	mul_fixed(t_fixed val1, t_fixed val2)
 t_fixed	div_fixed(t_fixed val1, t_fixed val2)
 {
 	#ifdef DOUBLE
+	return (val1 / val2);
+	#elif FLOAT
 	return (val1 / val2);
 	#else
 	return ((val1 * FLOATING_POINT) / val2);
