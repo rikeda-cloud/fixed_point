@@ -6,6 +6,13 @@
 
 #define LOOP_NUMBER 10000
 
+enum
+{
+	VALUE1 = 1,
+	VALUE2,
+	OPERATION,
+};
+
 static long long int	diff_time(struct timeval *time)
 {
 	struct timeval	new_time;
@@ -18,28 +25,38 @@ static long long int	diff_time(struct timeval *time)
 	return (sec + usec);
 }
 
-static void	bench_mark(t_fixed fixed1, t_fixed fixed2)
+static void	bench_mark(t_fixed fixed1, t_fixed fixed2, t_fixed (*f)(t_fixed, t_fixed))
 {
 	size_t			i = 0;
 	struct timeval	start_time;
 
 	gettimeofday(&start_time, NULL);
 	while (i++ < LOOP_NUMBER)
-	{
-		fixed1 = mul_fixed(fixed1, fixed2);
-	}
-	printf("diff time = %lldus\n", diff_time(&start_time));
-	printf("value = %f\n", fixed_to_double(fixed1));
+		fixed1 = f(fixed1, fixed2);
+	printf("diff time = %lldus\nvalue = %f\n\n", diff_time(&start_time), fixed_to_double(fixed1));
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-	double	double1 = 1.0;
-	double	double2 = 1.001;
+	if (argc < 3)
+		exit(1);
+
+	double	double1 = atof(argv[VALUE1]);
+	double	double2 = atof(argv[VALUE2]);
 
 	t_fixed	fixed1 = double_to_fixed(double1);
 	t_fixed	fixed2 = double_to_fixed(double2);
 
-	bench_mark(fixed1, fixed2);
+	printf("[(%s %s= %s) * %d]\n", argv[VALUE1], argv[OPERATION], argv[VALUE2], LOOP_NUMBER);
+
+	if (!strcmp(argv[OPERATION], "add"))
+		bench_mark(fixed1, fixed2, add_fixed);
+	else if (!strcmp(argv[OPERATION], "sub"))
+		bench_mark(fixed1, fixed2, sub_fixed);
+	else if (!strcmp(argv[OPERATION], "mul"))
+		bench_mark(fixed1, fixed2, mul_fixed);
+	else if (!strcmp(argv[OPERATION], "div"))
+		bench_mark(fixed1, fixed2, div_fixed);
+
 	return (0);
 }
