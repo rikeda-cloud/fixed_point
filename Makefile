@@ -9,8 +9,12 @@ LMFLAG		=	-lm
 SRCS_DIR	=	./srcs/
 SRCS		=	$(SRCS_DIR)cast.c
 SRCS		+=	$(SRCS_DIR)four_arithmetic_operations.c
+
+# --- choice main or benchmark ---
 # SRCS		+=	$(SRCS_DIR)main.c
 SRCS		+=	$(SRCS_DIR)benchmark.c
+# --- choice main or benchmark ---
+#
 OBJS		= 	$(SRCS:%.c=%.o)
 
 ifdef DOUBLE

@@ -50,13 +50,13 @@ int main(int argc, char **argv)
 	printf("[(%s %s= %s) * %d]\n", argv[VALUE1], argv[OPERATION], argv[VALUE2], LOOP_NUMBER);
 
 	if (!strcmp(argv[OPERATION], "add"))
-		bench_mark(fixed1, fixed2, add_fixed);
+		bench_mark(fixed1, fixed2, _add);
 	else if (!strcmp(argv[OPERATION], "sub"))
-		bench_mark(fixed1, fixed2, sub_fixed);
+		bench_mark(fixed1, fixed2, _sub);
 	else if (!strcmp(argv[OPERATION], "mul"))
-		bench_mark(fixed1, fixed2, mul_fixed);
+		bench_mark(fixed1, fixed2, _mul);
 	else if (!strcmp(argv[OPERATION], "div"))
-		bench_mark(fixed1, fixed2, div_fixed);
+		bench_mark(fixed1, fixed2, _div);
 
 	return (0);
 }

@@ -26,12 +26,12 @@ int main(int argc, char **argv)
 	printf("[%s %s %s]\n", argv[VALUE1], argv[VALUE2], argv[OPERATION]);
 
 	if (!strcmp(argv[OPERATION], "add"))
-		printf(FMT, (double1 + double2), fixed_to_double(add_fixed(fixed1, fixed2)));
+		printf(FMT, (double1 + double2), fixed_to_double(_add(fixed1, fixed2)));
 	else if (!strcmp(argv[OPERATION], "sub"))
-		printf(FMT, (double1 - double2), fixed_to_double(sub_fixed(fixed1, fixed2)));
+		printf(FMT, (double1 - double2), fixed_to_double(_sub(fixed1, fixed2)));
 	else if (!strcmp(argv[OPERATION], "mul"))
-		printf(FMT, (double1 * double2), fixed_to_double(mul_fixed(fixed1, fixed2)));
+		printf(FMT, (double1 * double2), fixed_to_double(_mul(fixed1, fixed2)));
 	else if (!strcmp(argv[OPERATION], "div"))
-		printf(FMT, (double1 / double2), fixed_to_double(div_fixed(fixed1, fixed2)));
+		printf(FMT, (double1 / double2), fixed_to_double(_div(fixed1, fixed2)));
 	return (0);
 }
